@@ -54,8 +54,6 @@ Ces tests mesurent les performances de triangulation et de conversion binaire so
 - Ensemble de 1000 points -> Mesurer le temps
 - Ensemble de 10000 points -> Mesurer le temps
 
----
-
 ## 3.2 Performance de conversion binaire
 
 - Sérialisation : PointSet de 1000 points
