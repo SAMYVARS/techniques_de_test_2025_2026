@@ -1,7 +1,5 @@
 # TODO
 
----
-
 # PARTIE 1 : TESTS UNITAIRES
 
 Ces tests vérifie des parties de l'implémentation independamment des unes et des autres.
