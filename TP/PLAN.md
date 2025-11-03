@@ -1,5 +1,7 @@
 # TODO
 
+---
+
 # PARTIE 1 : TESTS UNITAIRES
 
 Ces tests vérifie des parties de l'implémentation independamment des unes et des autres.
@@ -11,8 +13,6 @@ Ces tests vérifie des parties de l'implémentation independamment des unes et d
 - **Trianguler un polygone** -> n-2 triangles
 - **Moins de 3 points** -> erreur
 - **Points colinéaires** -> erreur
-
----
 
 ## 1.2 Tests de conversion de formats binaires
 
