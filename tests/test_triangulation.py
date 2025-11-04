@@ -53,4 +53,17 @@ class TestTriangulation:
 
         assert len(triangles) == 0
 
+    def test_triangulate_collinear_points(self):
+        point_set = PointSet([
+            (0.0, 0.0),
+            (1.0, 0.0),
+            (2.0, 0.0),
+            (3.0, 0.0),
+        ])
+        triangulator = Triangulator(point_set)
+
+        triangles = triangulator.triangulate()
+
+        assert len(triangles) == 0
+
 
