@@ -11,8 +11,8 @@ Ces tests vérifie des parties de l'implémentation independamment des unes et d
 - **Trianguler 3 points** -> Vérifier qu'un triangle est formé
 - **Trianguler un carré** (4 points) -> Vérifier que 2 triangles sont formés, couvrant tout le carré, sans chevauchement
 - **Trianguler un polygone** -> Tester plusieurs configurations (pentagone, hexagone, etc.), vérifier que la triangulation est correcte, sans chevauchement et couvre toute la surface. Vérifier également que pour N points on obtient bien N-2 triangles
-- **Moins de 3 points** -> S'assurer qu'aucun triangle n'est formé et qu'une erreur est retournée
-- **Points colinéaires** -> S'assurer qu'aucun triangle n'est formé et qu'une erreur retournée
+- **Moins de 3 points** -> S'assurer qu'aucun triangle n'est formé
+- **Points colinéaires** -> S'assurer qu'aucun triangle n'est formé
 
 ## 1.2 Tests de conversion de formats binaires
 
