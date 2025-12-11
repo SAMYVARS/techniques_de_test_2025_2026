@@ -1,4 +1,6 @@
 import pytest
+from src.triangulator.point_set import PointSet
+from src.triangulator.triangulator import Triangulator
 
 class TestTriangulation:
 
@@ -32,7 +34,7 @@ class TestTriangulation:
             (0.0, 0.0),
             (2.0, 0.0),
             (2.0, 2.0),
-            (1.0, 1.0),
+            (1.0, 3.0),
             (0.0, 2.0),
         ])
         triangulator = Triangulator(point_set)

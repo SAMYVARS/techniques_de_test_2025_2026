@@ -1,5 +1,6 @@
 import pytest
 import time
+from src.triangulator.point_set import PointSet
 
 
 class TestSerializationPerformance:

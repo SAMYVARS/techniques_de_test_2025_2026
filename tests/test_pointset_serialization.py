@@ -1,4 +1,5 @@
 import pytest
+from src.triangulator.point_set import PointSet
 
 class TestPointSetSerialization:
 

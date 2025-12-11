@@ -1,6 +1,8 @@
 import pytest
 import tracemalloc
 import sys
+from src.triangulator.point_set import PointSet
+from src.triangulator.triangulator import Triangulator
 
 
 class TestMemoryConsumption:
