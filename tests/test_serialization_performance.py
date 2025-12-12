@@ -1,11 +1,18 @@
-import pytest
+"""Serialization performance tests."""
+
 import time
+
+import pytest
+
 from src.triangulator.point_set import PointSet
 
 
+@pytest.mark.performance
 class TestSerializationPerformance:
+    """Tests for serialization performance."""
 
     def test_performance_serialize_1000_points(self):
+        """Measure time to serialize 1,000 points."""
         num_iterations = 10
         num_points = 1000
 
@@ -26,6 +33,7 @@ class TestSerializationPerformance:
         assert average_time >= 0
 
     def test_performance_deserialize_1000_points(self):
+        """Measure time to deserialize 1,000 points."""
         num_iterations = 10
         num_points = 1000
 

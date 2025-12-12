@@ -1,21 +1,29 @@
-import pytest
+"""Tests for the API module."""
+
 import struct
 import uuid
+
+import pytest
+
 import src.triangulator.api as api_module
 from src.triangulator.api import app, point_set_storage
 from src.triangulator.point_set import PointSet
 from src.triangulator.triangulator import Triangulator
 
+
 class TestAPI:
+    """Test suite for the API endpoints."""
 
     @pytest.fixture
     def client(self):
+        """Create a test client for the Flask app."""
         app.config['TESTING'] = True
         point_set_storage.clear()
         with app.test_client() as client:
             yield client
 
     def test_create_pointset_success(self, client):
+        """Test successful creation of a PointSet."""
         ps = PointSet([(0.0, 0.0), (1.0, 1.0)])
         binary_data = ps.serialize()
 
@@ -27,10 +35,12 @@ class TestAPI:
         assert data['pointSetId'] in point_set_storage
 
     def test_create_pointset_bad_request(self, client):
+        """Test creation of a PointSet with invalid data."""
         response = client.post('/pointset', data=b'\x00\x00')
         assert response.status_code == 400
 
     def test_triangulation_valid_request(self, client):
+        """Test a valid triangulation request."""
         ps = PointSet([(0.0, 0.0), (1.0, 0.0), (0.0, 1.0)])
         ps_id = str(uuid.uuid4())
         point_set_storage[ps_id] = ps
@@ -45,10 +55,12 @@ class TestAPI:
         assert num_triangles == 1
 
     def test_triangulation_pointset_not_found(self, client):
+        """Test triangulation request for a non-existent PointSet."""
         response = client.get('/triangulation/non-existent-id')
         assert response.status_code == 404
 
     def test_triangulation_server_error(self, client, monkeypatch):
+        """Test server error during triangulation."""
         ps = PointSet([(0.0, 0.0), (1.0, 0.0), (0.0, 1.0)])
         ps_id = str(uuid.uuid4())
         point_set_storage[ps_id] = ps
@@ -56,12 +68,15 @@ class TestAPI:
         def mock_triangulate_error(self):
             raise RuntimeError("Algorithm failed")
         
-        monkeypatch.setattr(Triangulator, 'triangulate_to_bytes', mock_triangulate_error)
+        monkeypatch.setattr(
+            Triangulator, 'triangulate_to_bytes', mock_triangulate_error
+        )
 
         response = client.get(f'/triangulation/{ps_id}')
         assert response.status_code == 500
 
     def test_database_unavailable(self, client, monkeypatch):
+        """Test API behavior when the database is unavailable."""
         monkeypatch.setattr(api_module, 'db_available', False)
 
         response = client.post('/pointset', data=b'')

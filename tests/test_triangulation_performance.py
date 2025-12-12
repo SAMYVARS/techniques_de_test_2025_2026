@@ -1,12 +1,19 @@
-import pytest
+"""Triangulation performance tests."""
+
 import time
+
+import pytest
+
 from src.triangulator.point_set import PointSet
 from src.triangulator.triangulator import Triangulator
 
 
+@pytest.mark.performance
 class TestTriangulationPerformance:
+    """Tests for triangulation performance."""
 
     def test_performance_triangulate_100_points(self):
+        """Measure time to triangulate 100 points."""
         num_iterations = 10
         num_points = 100
 
@@ -28,6 +35,7 @@ class TestTriangulationPerformance:
         assert average_time >= 0
 
     def test_performance_triangulate_1000_points(self):
+        """Measure time to triangulate 1,000 points."""
         num_iterations = 10
         num_points = 1000
 
@@ -49,6 +57,7 @@ class TestTriangulationPerformance:
         assert average_time >= 0
 
     def test_performance_triangulate_10000_points(self):
+        """Measure time to triangulate 10,000 points."""
         num_iterations = 5
         num_points = 10000
 

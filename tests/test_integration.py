@@ -1,13 +1,20 @@
-import pytest
+"""Integration tests for the Triangulator service."""
+
 import struct
+
+import pytest
+
+import src.triangulator.api as api_module
 from src.triangulator.api import app, point_set_storage
 from src.triangulator.point_set import PointSet
-import src.triangulator.api as api_module
+
 
 class TestIntegration:
+    """Integration test suite."""
 
     @pytest.fixture
     def client(self):
+        """Create a test client for the Flask app."""
         app.config['TESTING'] = True
         point_set_storage.clear()
         api_module.db_available = True
@@ -16,6 +23,7 @@ class TestIntegration:
             yield client
 
     def test_recuperation_reussie(self, client):
+        """Test successful retrieval of a PointSet."""
         ps = PointSet([(0.0, 0.0), (1.0, 1.0)])
         
         binary_data = ps.serialize()
@@ -29,6 +37,7 @@ class TestIntegration:
         assert get_response.data == binary_data
 
     def test_service_indisponible(self, client, monkeypatch):
+        """Test service unavailability."""
         monkeypatch.setattr(api_module, 'db_available', False)
 
         response = client.get('/pointset/some-id')
@@ -36,6 +45,7 @@ class TestIntegration:
         assert response.get_json() == {'error': 'Database unavailable'}
 
     def test_enchainement_complet(self, client):
+        """Test the complete workflow: upload -> triangulate."""
         points = [(0.0, 0.0), (1.0, 0.0), (0.0, 1.0)]
         ps = PointSet(points)
         binary_data = ps.serialize()
